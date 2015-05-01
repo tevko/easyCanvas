@@ -10,21 +10,20 @@
 *
 */
 
-/*global initCanvas*/
+/*eslint-env browser */
 
-var initCanvas = function(cls, ctx) {
+(function(window) {
     'use strict';
+    var easyCanvas = window.easyCanvas = window.easyCanvas || {};
+    easyCanvas.create = function(cls, ctx) {
     var cv = document.querySelector(cls),
         ct = cv.getContext(ctx);
-        cv.style.height = '250px';
-        cv.style.width = '250px';
-        cv.style.backgroundColor = 'orange';
     return {
         canvas: cv,
         context: ct,
-        width: '250px',
-        height: '250px',
-        bg: 'orange',
+        width: window.getComputedStyle(cv).getPropertyValue('width'),
+        height: window.getComputedStyle(cv).getPropertyValue('height'),
+        bg: window.getComputedStyle(cv).getPropertyValue('background-color'),
         shapesCount: 0,
         isDrawable: false,
         currentEventListenerCount: 0,
@@ -52,9 +51,9 @@ var initCanvas = function(cls, ctx) {
             ct.strokeRect.apply(ct, cords);
             this.currentShapes = this.currentShapes || {};
             this.currentShapes[this.shapesCount] = {
-                'cords': cords, 
-                'fill': fill, 
-                'lineWidth': lineWidth, 
+                'cords': cords,
+                'fill': fill,
+                'lineWidth': lineWidth,
                 'strokeStyle': strokeStyle
             };
             this.shapesCount += 1;
@@ -70,12 +69,12 @@ var initCanvas = function(cls, ctx) {
             ct.stroke();
             this.currentShapes = this.currentShapes || {};
             this.currentShapes[this.shapesCount] = {
-                'centerX' : centerX, 
-                'centerY' : centerY, 
-                'radius' : radius, 
-                'strokeStyle' : strokeStyle,
-                'fillStyle' : fillStyle,
-                'lineWidth' : lineWidth
+                'centerX': centerX,
+                'centerY': centerY,
+                'radius': radius,
+                'strokeStyle': strokeStyle,
+                'fillStyle': fillStyle,
+                'lineWidth': lineWidth
         };
             this.shapesCount += 1;
             return this;
@@ -96,12 +95,12 @@ var initCanvas = function(cls, ctx) {
                 ct.strokeStyle = strokeStyle;
                 ct.lineJoin = lineJoin;
                 ct.lineWidth = lineWidth;
-                for(var i=0; i < clickX.length; i++) {		
+                for (var i = 0; i < clickX.length; i++) {
                     ct.beginPath();
                     if (clickDrag[i] && i) {
-                        ct.moveTo(clickX[i-1], clickY[i-1]);
+                        ct.moveTo(clickX[i - 1], clickY[i - 1]);
                     } else {
-                        ct.moveTo(clickX[i]-1, clickY[i]);
+                        ct.moveTo(clickX[i] - 1, clickY[i]);
                     }
                     ct.lineTo(clickX[i], clickY[i]);
                     ct.closePath();
@@ -109,30 +108,28 @@ var initCanvas = function(cls, ctx) {
                 }
             },
             msdn = function(e) {
-                var mouseX = e.pageX - this.offsetLeft;
-                var mouseY = e.pageY - this.offsetTop;
                 paint = true;
-                addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+                addClick(e.clientX - this.offsetLeft, e.clientY - this.offsetTop);
             },
             msm = function(e) {
                 if (paint) {
-                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                    addClick(e.clientX - this.offsetLeft, e.clientY - this.offsetTop, true);
                     redraw();
                 }
             },
             pfalse = function() {
                 paint = false;
-            }
+            };
             cv.addEventListener('mousedown', msdn);
             cv.addEventListener('mousemove', msm);
             cv.addEventListener('mouseup', pfalse);
             cv.addEventListener('mouseleave', pfalse);
             this.currentEventListeners = this.currentEventListeners || {};
             this.currentEventListeners[this.currentEventListenerCount] = {
-                'mousedown' : {'name' : 'msdn', 'val' : msdn}, 
-                'mousemove' : {'name' : 'msm', 'val' : msm}, 
-                'mouseup' : {'name' : 'pfalse', 'val' : pfalse}, 
-                'mouseleave' : {'name' : 'pfalse', 'val' : pfalse}
+                'mousedown': {'name': 'msdn', 'val': msdn},
+                'mousemove': {'name': 'msm', 'val': msm},
+                'mouseup': {'name': 'pfalse', 'val': pfalse},
+                'mouseleave': {'name': 'pfalse', 'val': pfalse}
             };
             this.currentEventListenerCount += 1;
             return this;
@@ -142,20 +139,21 @@ var initCanvas = function(cls, ctx) {
                 var i = new Image();
                 i.src = src;
             }
-            var src = i || src;
-            ct.drawImage(src, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight);
+            var nsrc = i || src;
+            ct.drawImage(nsrc, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight);
             this.currentImgs = this.currentImgs || {};
             this.currentImgs[this.imgCount] = {
-                'source' : src,
-                'srcX' : srcX,
-                'srcY' : srcY,
-                'srcWidth' : srcWidth,
-                'srcHeight' : srcHeight,
-                'destX' : destX,
-                'destY' : destY,
-                'destWidth' : destWidth,
-                'destHeight' : destHeight
-            }
+                'source': nsrc,
+                'srcX': srcX,
+                'srcY': srcY,
+                'srcWidth': srcWidth,
+                'srcHeight': srcHeight,
+                'destX': destX,
+                'destY': destY,
+                'destWidth': destWidth,
+                'destHeight': destHeight
+            };
+            this.imgCount += 1;
             return this;
         },
         clearCanvas: function() {
@@ -200,3 +198,4 @@ var initCanvas = function(cls, ctx) {
         }
     };
 };
+})(window);

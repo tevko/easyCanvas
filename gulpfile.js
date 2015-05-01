@@ -17,6 +17,7 @@ gulp.task('scripts', function() {
             }
         }))
         .pipe(eslint.format())
+        .pipe(eslint.failOnError())
         .pipe(gulp.dest('src'))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
