@@ -4,11 +4,11 @@
   "version": "0.0.1",
   "description": "A JavaScript library to make working with the Canvas element easier",
   "devDependencies": {
-    "gulp": "*",
-    "gulp-clean": "*",
-    "gulp-concat": "*",
-    "gulp-jshint": "*",
-    "gulp-rename": "*",
-    "gulp-uglify": "*"
+    "del": "^1.1.1",
+    "gulp": "3.8.11",
+    "gulp-concat": "2.5.2",
+    "gulp-eslint": "0.11.1",
+    "gulp-rename": "1.2.2",
+    "gulp-uglify": "1.2.0"
   }
 }
