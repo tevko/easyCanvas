@@ -5,8 +5,7 @@ var gulp = require('gulp'),
     del = require('del'),
 	eslint = require('gulp-eslint'),
     browserSync = require('browser-sync').create(),
-    reload = browserSync.reload,
-    run = require('gulp-run');
+    reload = browserSync.reload;
 
 gulp.task('clean', function(cb) {
     del(['src']);
@@ -14,7 +13,9 @@ gulp.task('clean', function(cb) {
 
 gulp.task('browser-sync', function() {
     browserSync.init({
-        proxy: 'http://localhost:2020/demo/'
+        server: {
+            baseDir: './'
+        }
     });
 });
 
@@ -34,15 +35,9 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('src'));
 });
 
-gulp.task('caddy', ['watch', 'scripts'], function() {
-   run('caddy').exec(); 
-});
-
-gulp.task('js-watch', ['scripts']);
-
 gulp.task('watch', function () {
     gulp.watch('dev/*.js', ['scripts']);
     gulp.watch('dev/*.js').on('change', browserSync.reload);
 });
 
-gulp.task('default', ['caddy', 'browser-sync']);
+gulp.task('default', ['watch', 'browser-sync', 'scripts']);
