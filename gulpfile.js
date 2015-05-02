@@ -3,17 +3,27 @@ var gulp = require('gulp'),
 	rename = require('gulp-rename'),
 	uglify = require('gulp-uglify'),
     del = require('del'),
-	eslint = require('gulp-eslint');
+	eslint = require('gulp-eslint'),
+    browserSync = require('browser-sync').create(),
+    reload = browserSync.reload,
+    run = require('gulp-run');
 
 gulp.task('clean', function(cb) {
     del(['src']);
+});
+
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        proxy: 'http://localhost:2020/demo/'
+    });
 });
 
 gulp.task('scripts', function() {
     return gulp.src('dev/easyCanvas.js')
         .pipe(eslint({
             rules: {
-                'quotes': [2, 'single']
+                'quotes': [2, 'single'],
+                'no-console': 1
             }
         }))
         .pipe(eslint.format())
@@ -24,8 +34,15 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('src'));
 });
 
-gulp.task('watch', function () {
-    gulp.watch('dev/*.js', ['scripts']);
+gulp.task('caddy', ['watch', 'scripts'], function() {
+   run('caddy').exec(); 
 });
 
-gulp.task('default', ['watch', 'scripts']);
+gulp.task('js-watch', ['scripts']);
+
+gulp.task('watch', function () {
+    gulp.watch('dev/*.js', ['scripts']);
+    gulp.watch('dev/*.js').on('change', browserSync.reload);
+});
+
+gulp.task('default', ['caddy', 'browser-sync']);

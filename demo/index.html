@@ -1,0 +1,26 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>easyCanvas.js Demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                margin: 3em;
+            }
+        </style>
+        <script src="../src/easyCanvas.min.js"></script>
+    </head>
+    <body>
+        <canvas class="test">
+            no canvas support :c
+        </canvas>
+        <script>
+            easyCanvas
+            .create('.test', '2d')
+            .setBG('orange');
+        </script>
+    </body>
+</html>
