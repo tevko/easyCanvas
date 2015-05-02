@@ -2,6 +2,8 @@
 easyCanvas
 ----------
 
+[![buld status](https://travis-ci.org/tevko/easyCanvas.svg?branch=master)](https://travis-ci.org/tevko/easyCanvas)
+
 ##What is it?
 
 A zero dependency JavaScript library to make working with the Canvas element easier - 1.3k minified + gzip
