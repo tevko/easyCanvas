@@ -8,7 +8,7 @@ A zero dependency JavaScript library to make working with the Canvas element eas
 
 ##Why?
  
-Working with canvas can be tough. easyCanvas simplifies that by exposing simple methods that enable a wide array of features, eliminating many of the headaches that come when working with the canvas element.
+Working with canvas can be tough. easyCanvas simplifies that by exposing simple methods that enable a wide array of features, eliminating many of the headaches that come when working with the canvas element. Great for automation or those just starting out with the canvas element.
 
 ##Features
  - Set width, height, and color
@@ -19,6 +19,7 @@ Working with canvas can be tough. easyCanvas simplifies that by exposing simple 
  - Clear shapes and lines
  - Save and restore current state
  - Easy function chaining syntax
+ - State is stored in an object
  - Much more on its way!
 
 ##Developer Guidlines
