@@ -14,13 +14,14 @@ gulp.task('clean', function(cb) {
 gulp.task('browser-sync', function() {
     browserSync.init({
         server: {
-            baseDir: './'
+            baseDir: './',
+            index: 'demo/index.html'
         }
     });
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('dev/easyCanvas.js')
+    return gulp.src('dist/easyCanvas.js')
         .pipe(eslint({
             rules: {
                 'quotes': [2, 'single'],
@@ -36,8 +37,8 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('dev/*.js', ['scripts']);
-    gulp.watch('dev/*.js').on('change', browserSync.reload);
+    gulp.watch('dist/*.js', ['scripts']);
+    gulp.watch('dist/*.js').on('change', browserSync.reload);
 });
 
 gulp.task('default', ['watch', 'browser-sync', 'scripts']);

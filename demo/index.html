@@ -11,16 +11,16 @@
                 margin: 3em;
             }
         </style>
-        <script src="../dist/easyCanvas.min.js"></script>
+        <script src="../dist/easyCanvas.js"></script>
     </head>
     <body>
         <canvas class="test">
             no canvas support :c
         </canvas>
         <script>
-            easyCanvas
-            .create('.test', '2d')
-            .setBG('orange');
+           var c = easyCanvas.create('.test', '2d').setBG('green')
+           .drawImg('http://i.imgur.com/Jq0pPU2.png', 20, 20, 20, 20, 20, 20, 20, 20);
+           console.log(c);
         </script>
     </body>
 </html>
