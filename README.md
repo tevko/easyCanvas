@@ -16,7 +16,8 @@ Working with canvas can be tough. easyCanvas simplifies that by exposing simple 
 
 Just drop easyCanvas.min.js in your template, declare a canvas element, give it a class, and then call the function!
 
-`easyCanvas.create('.test', '2d').setBG('orange');`
+    var test = Object.create(easyCanvas);
+    test.init('.test', '2d').setBG('orange');
 
 ##Features
  - Set width, height, and color
