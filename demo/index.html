@@ -14,13 +14,14 @@
         <script src="../dist/easyCanvas.js"></script>
     </head>
     <body>
-        <canvas class="test">
-            no canvas support :c
-        </canvas>
+        <canvas class="c"></canvas>
+        <canvas class="d"></canvas>
         <script>
-           var c = easyCanvas.create('.test', '2d').setBG('green')
-           .drawImg('http://i.imgur.com/Jq0pPU2.png', 20, 20, 20, 20, 20, 20, 20, 20);
-           console.log(c);
+           var x = Object.create(easyCanvas);
+            x.init('.c', '2d').setBG('orange');
+            var y = Object.create(easyCanvas);
+            y.init('.d', '2d').setBG('green');
+            console.log(x, y, Object.getPrototypeOf(x), easyCanvas.isPrototypeOf(x));
         </script>
     </body>
 </html>
